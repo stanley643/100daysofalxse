@@ -40,10 +40,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-    def get_absolute_url(self):
-        return reverse('blog:post_detail',
-                       args=[
-                             self.publish.month,
-                             self.publish.day,
-                             self.slug])
+    #def get_absolute_url(self):
+     #   return reverse('blog:post_detail',
+      #                 args=[
+       #                      self.publish.month,
+        #                     self.publish.day,
+         #                    self.slug])
     
