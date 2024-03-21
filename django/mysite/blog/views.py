@@ -22,9 +22,10 @@ def post_list(request):
 def post_detail(request, id):
     post = get_object_or_404(Post,
                             status=Post.Status.PUBLISHED,
-                            slug=post,
-                            publish__month=month,
-                            publish__day=day)
+                            #slug=post,
+                            #publish__month=month,
+                            #publish__day=day
+                            )
     
     return render(request,
                   'blog/post/detail.html',
