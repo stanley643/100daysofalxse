@@ -1,11 +1,13 @@
 from calendar import month
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from .models import Post
+from .models import Post, Comment
 from django.core.paginator import Paginator
 from django.views.generic import ListView
-from .forms import EmailPostForm
+from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
+from django.views.decorators.http import require_POST
+
 # Create your views here.
 def post_list(request):
     posts = Post.published.all()
