@@ -28,10 +28,14 @@ def post_detail(request, id):
                             #publish__month=month,
                             #publish__day=day
                             )
+    comments = post.comments.filter(active=True)
+    form = CommentForm()
     
     return render(request,
                   'blog/post/detail.html',
-                  {'post': post})
+                  {'post': post,
+                    'comments': comments,
+                    'form': form})
 
 class PostListView(ListView):
     """Alternative post list view"""
