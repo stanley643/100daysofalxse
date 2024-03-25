@@ -7,10 +7,11 @@ from django.views.generic import ListView
 from .forms import EmailPostForm, CommentForm
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
+from taggit.models import Tag
 
 # Create your views here.
 def post_list(request):
-    posts = Post.published.all()
+    posts = Post.published.all() 
 
     #paginator = Paginator(post_list, 3)
     #page_number = request.GET.get('page', 1)
@@ -37,10 +38,15 @@ def post_detail(request, id):
                     'comments': comments,
                     'form': form})
 
-class PostListView(ListView):
+class PostListView(ListView, tag_slug=None):
     """Alternative post list view"""
 
     queryset = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        post_list = queryset.filter(tags__in=[tag])
+
     context_object_name = 'posts'
     paginate_by = 3
     template_name = 'blog/post/list.html'
