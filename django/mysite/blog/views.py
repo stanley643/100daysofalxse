@@ -10,8 +10,13 @@ from django.views.decorators.http import require_POST
 from taggit.models import Tag
 
 # Create your views here.
-def post_list(request):
+def post_list(request, tag_slug=None):
     posts = Post.published.all() 
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        post_list = posts.filter(tags__in=[tag])
+
 
     #paginator = Paginator(post_list, 3)
     #page_number = request.GET.get('page', 1)
@@ -38,14 +43,10 @@ def post_detail(request, id):
                     'comments': comments,
                     'form': form})
 
-class PostListView(ListView, tag=None):
+class PostListView(ListView):
     """Alternative post list view"""
 
     queryset = Post.published.all()
-    tag = None
-    if tag:
-        tag = get_object_or_404(Tag, slug=tag)
-        post_list = queryset.filter(tags__in=[tag])
 
     context_object_name = 'posts'
     paginate_by = 3
