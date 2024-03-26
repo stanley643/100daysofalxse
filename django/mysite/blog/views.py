@@ -38,13 +38,13 @@ def post_detail(request, id):
                     'comments': comments,
                     'form': form})
 
-class PostListView(ListView, tag_slug=None):
+class PostListView(ListView, tag=None):
     """Alternative post list view"""
 
     queryset = Post.published.all()
     tag = None
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
+    if tag:
+        tag = get_object_or_404(Tag, slug=tag)
         post_list = queryset.filter(tags__in=[tag])
 
     context_object_name = 'posts'
