@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from taggit.models import Tag
 from django.db.models import Count
+from django.utils import timezone
 
 # Create your views here.
 def post_list(request, tag_slug=None):
@@ -32,6 +33,7 @@ def post_list(request, tag_slug=None):
 def post_detail(request, id):
     post = get_object_or_404(Post,
                             status=Post.Status.PUBLISHED,
+                            publish__lte=timezone.now(),
                             #slug=post,
                             #publish__month=month,
                             #publish__day=day
