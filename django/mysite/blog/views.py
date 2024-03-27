@@ -49,7 +49,8 @@ def post_detail(request, id):
                   'blog/post/detail.html',
                   {'post': post,
                     'comments': comments,
-                    'form': form})
+                    'form': form,
+                    'similar_posts': similar_posts})
 
 class PostListView(ListView):
     """Alternative post list view"""
