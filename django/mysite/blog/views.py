@@ -25,7 +25,8 @@ def post_list(request, tag_slug=None):
 
     return render(request,
                   'blog/post/list.html',
-                  {'posts': posts})
+                  {'posts': posts,
+                    'tag': tag})
 
 def post_detail(request, id):
     post = get_object_or_404(Post,
